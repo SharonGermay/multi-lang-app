@@ -7,8 +7,10 @@ export default function Header() {
   const { i18n, t } = useTranslation(["common"]);
 
   useEffect(() => {
+    let userLang = navigator.language || navigator.userLanguage;
+    userLang = userLang.split("-");
     if (localStorage.getItem("i18nextLng")?.length > 2) {
-      i18next.changeLanguage("en");
+      i18next.changeLanguage(userLang[0]);
     }
   }, []);
 
@@ -34,7 +36,7 @@ export default function Header() {
               </li>
 
               <li className="nav-item">
-                <div style={{padding:"8px"}}>
+                <div style={{ padding: "8px" }}>
                   <select
                     value={localStorage.getItem("i18nextLng")}
                     onChange={handleLanguageChange}
